@@ -13,3 +13,5 @@ You can also try the course from [here](https://www.chainshot.com/learn/solidity
     * There is also internal visibility,
 * Enums in Solidity are like in the case of C++
 * A contract interface displays external/public functions declared on a contract without its implementation (the function body).
+* Events are used for logging in Smart Contracts.
+* We can make it easy to filter on event arguments by adding an indexed keyword:
