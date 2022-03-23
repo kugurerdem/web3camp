@@ -2,10 +2,10 @@
 pragma solidity ^0.8.4;
 
 contract Collectible {
-    event Deployed(address owner);
-    event Transfer(address original_owner, address new_owner);
+    event Deployed(address indexed owner);
+    event Transfer(address indexed original_owner, address indexed new_owner);
     event ForSale(uint price, uint timestamp);
-    event Purchase(uint amount, address buyer);
+    event Purchase(uint amount, address indexed buyer);
 
     address public owner;
     uint price;
@@ -30,8 +30,11 @@ contract Collectible {
         require(price != 0, "not-for-sale");
         require(msg.value >= price, "should pay more");
 
-        address _owner = msg.sender;
-        emit Transfer(owner, _owner);
-        owner = _owner;
+        payable(owner).transfer(msg.value);
+        emit Transfer(owner, msg.sender);
+        owner = msg.sender;
+        
+        emit Purchase(msg.value, owner);
+        price = 0;
     }
 }
